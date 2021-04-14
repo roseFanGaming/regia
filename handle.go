@@ -22,13 +22,17 @@ func HandleNotFound(ctx *Context) { http.NotFound(ctx.Raw.Writer, ctx.Raw.Reques
 
 func LogInterceptor(ctx *Context) {
 	start := time.Now()
+
+	defer func() {
+		endTime := time.Since(start)
+		startTimeStr := formatColor(start.Format(defaultTimeFormat), colorYellow)
+		method := formatColor(fmt.Sprintf("[METHOD:%s]", ctx.Raw.Request.Method), colorBlue)
+		path := formatColor(fmt.Sprintf("[PATH:%s]", ctx.Raw.Request.URL.Path), 96) // #02F3F3
+		addr := formatColor(fmt.Sprintf("[Addr:%s]", ctx.Raw.Request.RemoteAddr), 97)
+		end := formatColor(endTime.String(), colorMagenta)
+		// 2006-01-02 15:04:05     [METHOD:GET]     [Addr:127.0.0.1:49453]      [PATH:/name]
+		fmt.Printf("%-20s %-32s %-20s %-28s %-35s  %-20s\n", logTitle, startTimeStr, end, method, addr, path)
+	}()
+
 	ctx.Next()
-	endTime := time.Since(start)
-	startTimeStr := formatColor(start.Format(defaultTimeFormat), colorYellow)
-	method := formatColor(fmt.Sprintf("[METHOD:%s]", ctx.Raw.Request.Method), colorBlue)
-	path := formatColor(fmt.Sprintf("[PATH:%s]", ctx.Raw.Request.URL.Path), 96) // #02F3F3
-	addr := formatColor(fmt.Sprintf("[Addr:%s]", ctx.Raw.Request.RemoteAddr), 97)
-	end := formatColor(endTime.String(), colorMagenta)
-	// 2006-01-02 15:04:05     [METHOD:GET]     [Addr:127.0.0.1:49453]      [PATH:/name]
-	fmt.Printf("%-20s %-32s %-20s %-28s %-35s  %-20s\n", logTitle, startTimeStr, end, method, addr, path)
 }

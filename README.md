@@ -2,7 +2,7 @@
 
 Regia is a web framework written with golang ! 
 
-It is simple, helpful and easy to use. Build your own idea with it !
+It is simple, helpful and with high performance. Build your own idea with it !
 
 ## Installation
 

@@ -140,6 +140,11 @@ func (e *Engine) handleRequest(ctx *Context) {
 	ctx.start()
 }
 
+// Getter for e.Branch.methodsTree
+func (e *Engine) GetMethodTree() map[string][]*handleNode {
+	return e.Branch.methodsTree
+}
+
 // ServeHTTP implement http.Handle
 func (e *Engine) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
 	ctx := newContext(request, writer, e)

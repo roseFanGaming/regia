@@ -9,7 +9,7 @@ It is simple, helpful and with high performance. Build your own idea with it !
 Golang version 1.11 + required
 
 ```shell
-go get https://github.com/eatMoreApple/regia
+go get github.com/eatMoreApple/regia
 ```
 
 
